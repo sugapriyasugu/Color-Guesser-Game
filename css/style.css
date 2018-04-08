@@ -1,0 +1,33 @@
+body{
+	margin-top: 30px;
+}
+#start{
+	border: 10px solid blue;
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	padding-top:10px;
+	background-color: aqua;
+	cursor: pointer;
+}
+#gamearea{
+
+}
+.findme{
+	border: 1px solid black;
+	width:150px;
+	margin: auto;
+	height: 150px;
+	border-radius: 50%;
+	margin-bottom: 20px;
+	padding-top: 60px;
+}
+.row{
+	width: 600px;
+	margin: auto;
+}
+.col{
+	border: 1px solid black;
+	height: 100px;
+	cursor: pointer;
+}

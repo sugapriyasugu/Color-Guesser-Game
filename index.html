@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Document</title>
+</head>
+<body>
+	<div class="container">
+		<div id="start" class="display-4 mx-auto text-center">Start Game</div>
+		<div id="gamearea" class="mx-auto text-center">
+			<div class="findme">Match this color <span id="message"></span></div>
+			<div id="output"></div>
+		</div>
+	</div>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+	
+	
+	<script>
+		$(function(){
+			var colorArray=[];
+			$("#gamearea").hide();
+			$("#start").click(startGame);
+			$("#output").on("click",".col",checkCell);
+			function startGame(){
+			makeBoard();
+			pickMyColor();
+			$("#start").hide();
+			$("#gamearea").show();
+			console.log('Game started');
+		}
+			
+			function makeBoard(){
+				var board="";
+				for(var row=0;row<4;row++){
+					board+='<div class="row">';
+					for(var col=0;col<4;col++){
+						board+='<div class="col" style="background-color:'+addNewColor()+'">0</div>';
+					}
+					board+='</div>';
+				}
+				$("#output").html(board);
+			}
+			
+			function pickMyColor(){
+				var index= Math.floor(Math.random()*colorArray.length);
+				var picked=colorArray.splice(index,1);
+				$(".findme").css("background-color",picked);
+				if($(".findme").css("background-color")==='rgb(0,0,0)'){
+						$(this).css("color","white");}
+			}
+			
+			function randomColor(){
+		    	var r=Math.floor(Math.random()*256);
+				var g=Math.floor(Math.random()*256);
+				var b=Math.floor(Math.random()*256);
+				var rgb='rgb('+r+','+g+','+b+')';
+				return rgb;
+			}
+			
+			function addNewColor(){
+				var trackColor=randomColor();
+				//console.log(randomColor());
+				colorArray.push(trackColor);
+				//console.log(trackColor);
+				return trackColor;
+			}
+			
+			function checkCell(){
+				var currentColor=$(this).css('background-color');
+				var cntVal=Number($(this).text());
+				if(currentColor===$(".findme").css('background-color')){
+					cntVal++;
+					$(this).text(cntVal);
+					alert("correct");
+					$(this).css("background-color",addNewColor());
+					if($(this).css("background-color")==='rgb(0,0,0)'){
+						$(this).css("color","white");
+					}
+					pickMyColor();
+				}
+				else{
+					cntVal--;
+					$(this).text(cntVal);
+				}
+			}
+		});
+		
+	</script>
+	
+</body>
+</html>
